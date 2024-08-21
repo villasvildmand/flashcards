@@ -1,0 +1,53 @@
+{
+    "cards": [
+        {
+            "front": "Hvor mange bits er der i en byte?",
+            "back": "En byte har 8 bits"
+        },
+        {
+            "front": "Hvor mange bytes fylder en integer i Java?",
+            "back": "En integer fylder 4 bytes"
+        },
+        {
+            "front": "Hvad er den decimale værdi af 01110101?",
+            "back": "117"
+        },
+        {
+            "front": "Hvad er initiering?",
+            "back": "Når indholdet af en variabel sættes"
+        },
+        {
+            "front": "Hvad er deklaration?",
+            "back": "Når typen af en variabel bestemmes"
+        },
+        {
+            "front": "Hvad står ASCII for?",
+            "back": "American Standard Code for Information Interchange"
+        },
+        {
+            "front": "Hvilke decimale værdier har de store bogstaver (A-Z) i Ascii?",
+            "back": "65-90"
+        },
+        {
+            "front": "Hvilken datatype bruges til at beskrive tekst?",
+            "back": "String"
+        },
+        {
+            "front": "Hvilke typer af løkker findes der?",
+            "back": "For-løkker og while-løkker",
+            "bonus": "Enchanced loop"
+        },
+        {
+            "front": "Hvad er forskellen i navngivning mellem primitive og ikke-primitive datatyper?",
+            "back": "Primitive datatyper har småt begyndelsesbogstav, ikke-primitive har stort begyndelsesbogstav."
+        },
+        {
+            "front": "Hvad er overflow?",
+            "back": "Overflow: Når der lægges noget til en primitiv datatype med sin maksimale værdi, og den antager sin mindste værdi. 11111111 -> 00000000"
+        },
+        {
+            "front": "Hvad er første index i en array?",
+            "back": "Første index i en array er 0."
+        }
+    ]
+}
