@@ -16,11 +16,13 @@ void setup() {
 
 void draw() {
   background(0);
-  textAlign(CENTER);
+  //textAlign(CENTER);
+  //rectMode(CENTER);
+  final int textSize = 24;
+  textSize(textSize); //skrifstørrelse
+  textLeading(textSize*1.2); //Linjeafstand
   
-  textSize(); //skrifstørrelse
-  textLeading(); //Linjeafstand
-  text(showingAnswer ? flashcards[cardIndex].back : flashcards[cardIndex].front, width / 2, height / 2);
+  text(showingAnswer ? flashcards[cardIndex].back : flashcards[cardIndex].front, width/4, height/4, width/2, height/2);
 }
 
 void keyPressed(KeyEvent event) {
