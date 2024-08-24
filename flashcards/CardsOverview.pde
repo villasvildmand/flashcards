@@ -129,7 +129,7 @@ class CardsOverview {
       this.velocityX -= force * deltaTime;
       this.displacementX -= this.velocityX * deltaTime;
 
-      if (abs(this.velocityX) < 4.0 && abs(this.displacementX) < 12.0) {
+      if (abs(this.velocityX) < 6.0 && abs(this.displacementX) < 12.0) {
         this.displacementX = 0.0;
         this.velocityX = 0.0;
       }
