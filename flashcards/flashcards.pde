@@ -36,7 +36,7 @@ void draw() {
   double deltaTime = (time - lastTime) / 1_000_000_000.0f; // StackOverflow spørgsmålet bruger int, men double er valgt da decimaler og præcision ønskes
   lastTime = time;
   
-  background(100);
+  //background(100);
   //textAlign(CENTER);
   //rectMode(CENTER);
   final int textSize = 24;

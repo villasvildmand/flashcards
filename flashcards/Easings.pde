@@ -30,4 +30,9 @@ static class Easings {
   static float easeOutOvershoot(float x) {
     return (1.5 - x) * x * 2.0;
   }
+  
+  // Virker som forventet når 1 < a <= 2
+  static float easeOutVariableOvershoot(float x, float a) {
+    return (a - x) * x / (a - 1.0);
+  }
 }

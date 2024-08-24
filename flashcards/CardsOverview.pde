@@ -2,10 +2,10 @@ class CardsOverview {
   ArrayList<CardObject> cards;
   float cardCounter;
   
-  int[] remainingIndices;
+  int[] spawnOrder;
   int spawnIndex;
 
-  static final float SPAWN_RATE = 0.15f;
+  static final float SPAWN_RATE = 0.1f;
 
   CardsOverview() {
     cards = new ArrayList<>();
@@ -22,12 +22,12 @@ class CardsOverview {
       y += 50;
     }
     
-    this.remainingIndices = new int[cards.size()];
-    for(int i = 0; i < this.remainingIndices.length; i++) {
-      this.remainingIndices[i] = i;
+    this.spawnOrder = new int[cards.size()];
+    for(int i = 0; i < this.spawnOrder.length; i++) {
+      this.spawnOrder[i] = i;
     }
     
-    Utilities.shuffleIntArray(this.remainingIndices);
+    Utilities.shuffleIntArray(this.spawnOrder);
   }
 
   void render() {
@@ -48,7 +48,7 @@ class CardsOverview {
       if (this.cardCounter > SPAWN_RATE) {
         this.cardCounter -= SPAWN_RATE;
 
-        this.cards.get(spawnIndex).animating = true;
+        this.cards.get(this.spawnOrder[spawnIndex]).animating = true;
         this.spawnIndex++;
       }
     }
@@ -110,7 +110,7 @@ class CardsOverview {
       if (this.animating) {
         float progress = Easings.easeOutBack(animProgress);
         float mixX = progress;
-        float mixY = Easings.easeOutOvershoot(progress);
+        float mixY = Easings.easeOutVariableOvershoot(progress, 1.6);
 
         PVector offset = animOffset.copy();
         offset.x *= mixX;
