@@ -16,7 +16,7 @@ long lastTime;
 
 void setup() {
   size(600, 450);
-  smooth(2);
+  smooth(8);
 
   categories = new HashMap<>();
 
@@ -36,7 +36,7 @@ void draw() {
   double deltaTime = (time - lastTime) / 1_000_000_000.0f; // StackOverflow spørgsmålet bruger int, men double er valgt da decimaler og præcision ønskes
   lastTime = time;
   
-  background(0);
+  background(100);
   //textAlign(CENTER);
   //rectMode(CENTER);
   final int textSize = 24;

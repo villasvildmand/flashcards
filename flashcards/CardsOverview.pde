@@ -1,6 +1,8 @@
 class CardsOverview {
   ArrayList<CardObject> cards;
   float cardCounter;
+  
+  int[] remainingIndices;
   int spawnIndex;
 
   static final float SPAWN_RATE = 0.15f;
@@ -13,12 +15,19 @@ class CardsOverview {
       print(category);
 
       for (int i = 0; i < category.size(); i++) {
-        CardObject card = new CardObject(new PVector(width - 80, 0), new PVector(i * 45 + 100, y + 75));
+        CardObject card = new CardObject(new PVector(width - 40, -15), new PVector(i * 45 + 100, y + 75));
         cards.add(card);
       }
 
       y += 50;
     }
+    
+    this.remainingIndices = new int[cards.size()];
+    for(int i = 0; i < this.remainingIndices.length; i++) {
+      this.remainingIndices[i] = i;
+    }
+    
+    Utilities.shuffleIntArray(this.remainingIndices);
   }
 
   void render() {
@@ -58,7 +67,7 @@ class CardsOverview {
     float displacementX;
     PVector pos;
     PVector prevPos;
-    
+
     static final float SPRING_CONSTANT = 80.0;
     static final float DAMPING_CONSTANT = 3.0;
 
@@ -73,12 +82,14 @@ class CardsOverview {
 
     void render() {
       pushMatrix();
+      stroke(60);
+      fill(245);
       translate(this.pos.x, this.pos.y);
       rotate(this.displacementX * 0.0025);
       rect(-20.0, -15.0, 40.0, 30.0);
       /*fill(255, 0, 0);
-      text(this.velocityX, 0, 0);
-      text(this.displacementX, 0, 20);*/
+       text(this.velocityX, 0, 0);
+       text(this.displacementX, 0, 20);*/
       popMatrix();
     }
 
@@ -86,21 +97,27 @@ class CardsOverview {
       if (this.animProgress < 1.0) {
         if (this.animating == true) {
           this.animProgress += deltaTime * 1.0;
-          if (this.animProgress > 1.0) this.animProgress = 1.0;
+          if (this.animProgress > 1.0) {
+            this.animProgress = 1.0;
+          }
         }
+      } else {
+        this.animating = false;
       }
 
       prevPos = pos;
 
-      float progress = Easings.easeOutBack(animProgress);
-      float mixX = progress;
-      float mixY = Easings.easeOutOvershoot(progress);
-      
-      PVector offset = animOffset.copy();
-      offset.x *= mixX;
-      offset.y *= mixY;
-      
-      pos = PVector.add(startPosition, offset);
+      if (this.animating) {
+        float progress = Easings.easeOutBack(animProgress);
+        float mixX = progress;
+        float mixY = Easings.easeOutOvershoot(progress);
+
+        PVector offset = animOffset.copy();
+        offset.x *= mixX;
+        offset.y *= mixY;
+
+        pos = PVector.add(startPosition, offset);
+      }
 
       // Udregner hastighed i x-retningen med v = d/t
       float vX = (this.prevPos.x - this.pos.x) / (float) deltaTime;
@@ -111,7 +128,7 @@ class CardsOverview {
       float force = -SPRING_CONSTANT * this.displacementX + DAMPING_CONSTANT * this.velocityX;
       this.velocityX -= force * deltaTime;
       this.displacementX -= this.velocityX * deltaTime;
-      
+
       if (abs(this.velocityX) < 4.0 && abs(this.displacementX) < 12.0) {
         this.displacementX = 0.0;
         this.velocityX = 0.0;
