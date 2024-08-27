@@ -1,10 +1,18 @@
-/*public class GameController {
+class GameState implements State {
   ArrayList<Integer> cardStack;
+  GameView view;
 
-  GameController() {
+  GameState() {
     cardStack = new ArrayList<>();
+    view = new GameView();
+  }
 
-    registerMethod("keyEvent", this);
+  void onEnter() {
+    nextCard();
+  }
+  
+  void appendCard(int index) {
+    cardStack.add(index);
   }
 
   void nextCard() {
@@ -12,12 +20,11 @@
     int index = cardStack.remove(backIndex);
     view.setCard(flashcards[index]);
   }
-  
-  void appendCard(int index) {
-    cardStack.add(index);
-  }
 
-  public void keyEvent(KeyEvent event) {
+  void handleMouseEvent(MouseEvent event) {
+  }
+  
+  void handleKeyEvent(KeyEvent event) {
     if (event.getAction() == KeyEvent.PRESS) {
       // Tjekker om mellemrum trykkes
       if (event.getKeyCode() == 32) {
@@ -36,4 +43,12 @@
       }
     }
   }
-}*/
+  
+  void update(double deltaTime) {
+    view.update(deltaTime);
+  }
+  
+  void render() {
+    view.render();
+  }
+}

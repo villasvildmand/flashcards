@@ -4,16 +4,18 @@ HashMap<String, ArrayList<Integer>> categories;
 int cardIndex = 0;
 boolean showingAnswer = false;
 
-// Brugerdata
+// Brugerdata - måske lav til en klasse?
 String userName = "Christian";
 int userLevel = 1;
 
-CardsOverview co;
+//CardsOverview co;
 
 long lastTime;
 
-GameView view;
-GameController controller;
+//GameView view;
+//GameController controller;
+
+State state;
 
 void setup() {
   size(600, 450);
@@ -24,18 +26,31 @@ void setup() {
   loadCards();
   saveUserData();
   
-  view = new GameView();
-  view.setCard(flashcards[cardIndex]);
+  state = new MenuState();
+
+  //view = new GameView();
+  //view.setCard(flashcards[cardIndex]);
+
+  //controller = new GameController();
+
   
-  controller = new GameController();
-  
-  for (int i = 0; i < flashcards.length; i++) {
-    controller.appendCard(i);
-  }
-  
-  co = new CardsOverview();
-  
+
+  //co = new CardsOverview();
+
+  registerMethod("keyEvent", this);
+  registerMethod("mouseEvent", this);
+
   lastTime = System.nanoTime();
+  
+  
+}
+
+void keyEvent(KeyEvent event) {
+  state.handleKeyEvent(event);
+}
+
+void mouseEvent(MouseEvent event) {
+  state.handleMouseEvent(event);
 }
 
 // deltaTime med hjælp fra:
@@ -45,15 +60,9 @@ void draw() {
   long time = System.nanoTime();
   double deltaTime = (time - lastTime) / 1_000_000_000.0f; // StackOverflow spørgsmålet bruger int, men double er valgt da decimaler og præcision ønskes
   lastTime = time;
-  
-  view.render();
 
-  //co.update(deltaTime);
-  //co.render();
-}
-
-void keyPressed(KeyEvent event) {
-  
+  state.update(deltaTime);
+  state.render();
 }
 
 void loadCards() {
@@ -70,7 +79,7 @@ void loadCards() {
 
     String tag = card.getString("tag");
     if (tag == "") tag = "Ikke sorteret";
-    
+
     if (categories.containsKey(tag)) {
       categories.get(tag).add(i);
     } else {
