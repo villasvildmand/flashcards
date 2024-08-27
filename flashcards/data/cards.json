@@ -11,9 +11,9 @@
             "tag": "Datatyper"
         },
         {
-            "front": "Hvad er den decimale værdi af 01110101?",
-            "back": "117",
-            "tag": "Det Binære Talsystem"
+            "front": "Hvilken datatype beskriver et tegn (bogstav, tal m.m.)",
+            "back": "Tegn kan repræsenteres med en char",
+            "tag": "Datatyper"
         },
         {
             "front": "Hvad er initiering?",

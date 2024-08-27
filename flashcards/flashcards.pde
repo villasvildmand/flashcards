@@ -1,5 +1,3 @@
-
-
 Flashcard[] flashcards;
 HashMap<String, ArrayList<Integer>> categories;
 
@@ -14,6 +12,9 @@ CardsOverview co;
 
 long lastTime;
 
+GameView view;
+GameController controller;
+
 void setup() {
   size(600, 450);
   smooth(8);
@@ -22,6 +23,15 @@ void setup() {
 
   loadCards();
   saveUserData();
+  
+  view = new GameView();
+  view.setCard(flashcards[cardIndex]);
+  
+  controller = new GameController();
+  
+  for (int i = 0; i < flashcards.length; i++) {
+    controller.appendCard(i);
+  }
   
   co = new CardsOverview();
   
@@ -36,29 +46,14 @@ void draw() {
   double deltaTime = (time - lastTime) / 1_000_000_000.0f; // StackOverflow spørgsmålet bruger int, men double er valgt da decimaler og præcision ønskes
   lastTime = time;
   
-  //background(100);
-  //textAlign(CENTER);
-  //rectMode(CENTER);
-  final int textSize = 24;
-  textSize(textSize); //skrifstørrelse
-  textLeading(textSize*1.2); //Linjeafstand
-  
-  //text(showingAnswer ? flashcards[cardIndex].back : flashcards[cardIndex].front, width/4, height/4, width/2, height/2);
+  view.render();
 
-  co.update(deltaTime);
-  co.render();
+  //co.update(deltaTime);
+  //co.render();
 }
 
 void keyPressed(KeyEvent event) {
-  // Tjekker om mellemrum trykkes
-  if (event.getKeyCode() == 32) {
-    if (showingAnswer == false) {
-      showingAnswer = true;
-    } else {
-      showingAnswer = false;
-      cardIndex = (cardIndex + 1) % flashcards.length;
-    }
-  }
+  
 }
 
 void loadCards() {
@@ -66,8 +61,6 @@ void loadCards() {
   JSONArray cards = json.getJSONArray("cards");
 
   flashcards = new Flashcard[cards.size()];
-  
-  
 
   for (int i = 0; i < cards.size(); i++) {
     JSONObject card = cards.getJSONObject(i);
