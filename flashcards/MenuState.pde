@@ -13,6 +13,7 @@ class MenuState implements State {
 
         state = gameState;
         gameState.onEnter();
+        
       }
     }
   }

@@ -1,21 +1,12 @@
 Flashcard[] flashcards;
 HashMap<String, ArrayList<Integer>> categories;
 
-int cardIndex = 0;
-boolean showingAnswer = false;
-
 // Brugerdata - måske lav til en klasse?
 String userName = "Christian";
 int userLevel = 1;
 
-//CardsOverview co;
-
-long lastTime;
-
-//GameView view;
-//GameController controller;
-
 State state;
+long lastTime;
 
 void setup() {
   size(600, 450);
@@ -28,21 +19,10 @@ void setup() {
   
   state = new MenuState();
 
-  //view = new GameView();
-  //view.setCard(flashcards[cardIndex]);
-
-  //controller = new GameController();
-
-  
-
-  //co = new CardsOverview();
-
   registerMethod("keyEvent", this);
   registerMethod("mouseEvent", this);
 
   lastTime = System.nanoTime();
-  
-  
 }
 
 void keyEvent(KeyEvent event) {
@@ -64,6 +44,7 @@ void draw() {
   state.update(deltaTime);
   state.render();
 }
+
 
 void loadCards() {
   JSONObject json = loadJSONObject("data/cards.json");

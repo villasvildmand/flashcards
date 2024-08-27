@@ -1,6 +1,7 @@
 class GameState implements State {
   ArrayList<Integer> cardStack;
   GameView view;
+  boolean showingAnswer;
 
   GameState() {
     cardStack = new ArrayList<>();
@@ -32,11 +33,12 @@ class GameState implements State {
           showingAnswer = true;
         } else {
           showingAnswer = false;
-          cardIndex = (cardIndex + 1) % flashcards.length;
 
           // Viser det nye kort
           if (!cardStack.isEmpty()) {
             nextCard();
+          } else {
+            state = new MenuState();
           }
         }
         view.showingAnswer = showingAnswer;
