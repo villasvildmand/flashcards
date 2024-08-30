@@ -1,8 +1,13 @@
 class GameView {
   Flashcard flashcard;
   boolean showingAnswer;
+  String currentCardText;
 
   GameView() {
+  }
+
+  void setNumber(int number, int total) {
+    this.currentCardText = number + "/" + total;
   }
 
   void setCard(Flashcard card) {
@@ -23,7 +28,7 @@ class GameView {
     text(this.showingAnswer ? this.flashcard.getBack() : this.flashcard.getFront(), width/4, height/4, width/2, height/2);
     
     textAlign(CENTER);
-    text("Flashcard 1/10", width/2, 28);
+    text(this.currentCardText, width/2, 28);
   }
 
   void update(double deltaTime) {

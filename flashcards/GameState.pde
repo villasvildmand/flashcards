@@ -1,5 +1,6 @@
 class GameState implements State {
   ArrayList<Integer> cardStack;
+  int startSize;
   GameView view;
   boolean showingAnswer;
 
@@ -11,12 +12,14 @@ class GameState implements State {
   void onEnter() {
     nextCard();
   }
-  
+
   void appendCard(int index) {
     cardStack.add(index);
+    this.startSize++;
   }
 
   void nextCard() {
+    view.setNumber(cardStack.size(), startSize);
     int backIndex = cardStack.size() - 1; // Index af sidste kort;
     int index = cardStack.remove(backIndex);
     view.setCard(flashcards[index]);
@@ -24,7 +27,7 @@ class GameState implements State {
 
   void handleMouseEvent(MouseEvent event) {
   }
-  
+
   void handleKeyEvent(KeyEvent event) {
     if (event.getAction() == KeyEvent.PRESS) {
       // Tjekker om mellemrum trykkes
@@ -45,11 +48,11 @@ class GameState implements State {
       }
     }
   }
-  
+
   void update(double deltaTime) {
     view.update(deltaTime);
   }
-  
+
   void render() {
     view.render();
   }
