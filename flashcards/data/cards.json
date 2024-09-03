@@ -1,4 +1,11 @@
 {
+    "tags": [
+        "Datatyper",
+        "Variabler",
+        "Arrays",
+        "Funktioner",
+        "Kontrolstrukturer"
+    ],
     "cards": [
         {
             "front": "Hvor mange bits er der i en byte?",
@@ -17,7 +24,7 @@
         },
         {
             "front": "Hvad er initiering?",
-            "back": "Når indholdet af en variabel sættes",
+            "back": "Når indholdet af en variabel sættes med '='.",
             "tag": "Variabler"
         },
         {
@@ -48,7 +55,7 @@
         },
         {
             "front": "Hvad er forskellen i navngivning mellem primitive og ikke-primitive datatyper?",
-            "back": "Primitive datatyper har småt begyndelsesbogstav, ikke-primitive har stort begyndelsesbogstav.",
+            "back": "Primitive datatyper har småt begyndelsesbogstav, ikke-primitive har stort begyndelsesbogstav. F.eks.: int og String",
             "tag": "Datatyper"
         },
         {
@@ -60,6 +67,16 @@
             "front": "Hvad er første index i en array?",
             "back": "Første index i en array er 0.",
             "tag": "Arrays"
+        },
+        {
+            "front": "Hvad viser [] når det står efter en datatype? F.eks. String[] eller int[]",
+            "back": "[] viser at datatypen er en array, der indeholder det som [] står foran. For eksempel betyder String[] en array af strings.",
+            "tag": "Arrays"
+        },
+        {
+            "front": "Hvilken returdatatype skal en funktion have, hvis den ikke skal returnere noget?",
+            "back": "'void'",
+            "tag": "Funktioner"
         }
     ]
 }

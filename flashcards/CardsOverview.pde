@@ -15,7 +15,7 @@ class CardsOverview {
       print(category);
 
       for (int i = 0; i < category.size(); i++) {
-        CardObject card = new CardObject(new PVector(width - 40, -15), new PVector(i * 45 + 100, y + 75));
+        CardObject card = new CardObject(new PVector(width - 40, -15), new PVector(i * 47 + 100, y + 75));
         cards.add(card);
       }
 
@@ -32,7 +32,7 @@ class CardsOverview {
 
   void render() {
     push();
-    //background(200);
+    background(200);
 
     for (int i = 0; i < this.cards.size(); i++) {
       this.cards.get(i).render();

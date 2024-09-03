@@ -16,7 +16,7 @@ void setup() {
 
   loadCards();
   saveUserData();
-  
+
   state = new MenuState();
 
   registerMethod("keyEvent", this);
@@ -45,9 +45,18 @@ void draw() {
   state.render();
 }
 
+// TODO - ryk nedenstående funktioner til en klasse(?)
 
 void loadCards() {
   JSONObject json = loadJSONObject("data/cards.json");
+
+  StringList tags = json.getStringList("tags");
+  for (int i = 0; i < tags.size(); i++) {
+    String tag = tags.get(i);
+    categories.put(tag, new ArrayList<Integer>());
+  }
+  categories.put("Ikke sorteret", new ArrayList<Integer>());
+
   JSONArray cards = json.getJSONArray("cards");
 
   flashcards = new Flashcard[cards.size()];
@@ -59,13 +68,12 @@ void loadCards() {
     String back = card.getString("back");
 
     String tag = card.getString("tag");
-    if (tag == "") tag = "Ikke sorteret";
 
     if (categories.containsKey(tag)) {
       categories.get(tag).add(i);
     } else {
-      categories.put(tag, new ArrayList<Integer>());
-      categories.get(tag).add(i);
+      if (!tag.equals("")) println("Unsorted tag: " + tag);
+      categories.get("Ikke sorteret").add(i);
     }
 
     flashcards[i] = new Flashcard(front, back);
