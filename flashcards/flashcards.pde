@@ -8,6 +8,8 @@ int userLevel = 1;
 State state;
 long lastTime;
 
+PFont mainFont;
+
 void setup() {
   size(600, 450);
   smooth(8);
@@ -21,6 +23,11 @@ void setup() {
 
   registerMethod("keyEvent", this);
   registerMethod("mouseEvent", this);
+
+  mainFont = createFont("data/assets/fonts/Merriweather-Regular.ttf", 24.0);
+  textFont(mainFont);
+  
+  windowResizable(true);
 
   lastTime = System.nanoTime();
 }

@@ -62,6 +62,7 @@ class MenuState implements State {
     textSize(36);
     textAlign(CENTER);
     text("Flashcards om programmering", width/2, height/2);
-    text("< " + getModeName(this.gameMode) + " >", width/2, height*0.75);
+    text("Skift med piletaster", width / 2, height * 0.75 + 48);
+    text(getModeName(this.gameMode), width/2, height*0.75);
   }
 }
