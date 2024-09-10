@@ -1,12 +1,24 @@
+// Alle flashcards i en usorteret liste
 Flashcard[] flashcards;
+
+// Alle flashcards sorteret efter kategorier
 HashMap<String, ArrayList<Integer>> categories;
 
 PlayerData playerData;
 
 State state;
+
 long lastTime;
 
-PFont mainFont;
+PFont fontRegular;
+PFont fontMedium;
+PFont fontSemiBold;
+PFont fontBold;
+
+final color COLOR_BACKGROUND = color(0);
+final color COLOR_PRIMARY = #FFC41F;
+final color COLOR_SECONDARY = color(128);
+final color COLOR_TERTIARY = color(32);
 
 void setup() {
   size(600, 450);
@@ -15,22 +27,22 @@ void setup() {
   categories = new HashMap<>();
 
   loadCards();
-  saveUserData();
 
   state = new MenuState();
 
   registerMethod("keyEvent", this);
   registerMethod("mouseEvent", this);
 
-  mainFont = createFont("data/assets/fonts/Merriweather-Regular.ttf", 24.0);
-  textFont(mainFont);
-  
+  fontRegular = createFont("data/assets/fonts/SUSE-Regular.ttf", 24.0);
+  fontMedium = createFont("data/assets/fonts/SUSE-Medium.ttf", 24.0);
+  fontSemiBold = createFont("data/assets/fonts/SUSE-SemiBold.ttf", 24.0);
+  fontBold = createFont("data/assets/fonts/SUSE-Bold.ttf", 24.0);
+  textFont(fontRegular);
+
   windowResizable(true);
-  
+
   playerData = new PlayerData();
   playerData.loadFromFile();
-  playerData.gameLevel = 100;
-  playerData.saveToFile();
 
   lastTime = System.nanoTime();
 }
@@ -86,19 +98,13 @@ void loadCards() {
       categories.get("Ikke sorteret").add(i);
     }
 
-    flashcards[i] = new Flashcard(front, back);
+    int level = card.getInt("level");
+
+    flashcards[i] = new Flashcard(front, back, level);
   }
 
   for (Flashcard flashcard : flashcards) {
     println(flashcard.front);
   }
   println(categories);
-}
-
-void saveUserData() {
-  JSONObject json = new JSONObject();
-  json.setString("name", userName);
-  json.setInt("level", userLevel);
-
-  saveJSONObject(json, "data/user/save_data.json");
 }

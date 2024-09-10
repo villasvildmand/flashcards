@@ -39,11 +39,11 @@ class MenuState implements State {
         }
 
         break;
-      case 37: // venstre pil
+      case 38: // pil op
         gameMode--;
         if (this.gameMode < 0) this.gameMode = this.MODE_COUNT - 1;
         break;
-      case 39: // højre pil
+      case 40: // pil ned
         gameMode++;
         if (this.gameMode > this.MODE_COUNT - 1) this.gameMode = 0;
         break;
@@ -58,12 +58,48 @@ class MenuState implements State {
   }
 
   void render() {
-    background(0, 0, 0);
+    push();
+    textFont(fontRegular);
+    background(COLOR_BACKGROUND);
     textSize(36);
-    textAlign(CENTER);
-    fill(255);
-    text("Flashcards om programmering", width/2, height/2);
-    text("Skift med piletaster", width / 2, height * 0.75 + 48);
-    text(getModeName(this.gameMode), width/2, height*0.75);
+    
+    
+    textAlign(LEFT, CENTER);
+    
+    final int spacing = 50;
+    final float listStartY = (height - spacing * (MODE_COUNT - 1))/2.0;
+    
+    for (int i = 0; i < MODE_COUNT; i++) {
+      fill(i == gameMode ? COLOR_PRIMARY : COLOR_SECONDARY);
+      text(getModeName(i), width*0.2, listStartY + i * spacing);
+    }
+    
+    textAlign(CENTER, CENTER);
+    
+    textFont(fontBold);
+    fill(COLOR_PRIMARY);
+    textSize(192);
+    text(playerData.getLevel(), width*0.7, height/2 - 24);
+    
+    noFill();
+    strokeWeight(8);
+    stroke(COLOR_TERTIARY);
+
+    arc(width*0.7, height/2 + 8, 240, 180, PI * 0.25, PI*0.75);
+    float levelProgress = playerData.getLevelProgress();
+    stroke(COLOR_BACKGROUND);
+    strokeWeight(16);
+    arc(width*0.7, height/2 + 8, 240, 180, PI * 0.25, PI*(0.25 + levelProgress*0.5));
+    strokeWeight(8);
+    stroke(COLOR_SECONDARY);
+    arc(width*0.7, height/2 + 8, 240, 180, PI * 0.25, PI*(0.25 + levelProgress*0.5));
+    
+    /*final float levelTextWidth = textWidth(str(playerData.getLevel()));
+    textSize(36);
+    fill(128);
+    text(playerData.name, width*0.7, height/2 + 100);
+    text("lvl", width * 0.7 - levelTextWidth, height/2);*/
+    
+    pop();
   }
 }

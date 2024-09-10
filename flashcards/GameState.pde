@@ -3,8 +3,10 @@ class GameState implements State {
   int startSize;
   GameView view;
   boolean showingAnswer;
-  
+
   int playerLevel;
+  
+  int[] unusedIndices;
 
   GameState() {
     cardStack = new ArrayList<>();
@@ -30,35 +32,29 @@ class GameState implements State {
   void handleMouseEvent(MouseEvent event) {
   }
 
-  void handlePlayerAnswer(boolean isCorrect) {
+  void handlePlayerAnswer() {
     showingAnswer = false;
     if (!cardStack.isEmpty()) {
       nextCard();
     } else {
+      // Hvis der ikke er flere kort, vender man tilbage til menuen
       state = new MenuState();
+      playerData.points++;
+      playerData.saveToFile();
     }
-    view.showingAnswer = showingAnswer;
   }
 
   void handleKeyEvent(KeyEvent event) {
     if (event.getAction() == KeyEvent.PRESS) {
       // Tjekker om mellemrum trykkes
       switch (event.getKeyCode()) {
-      case 37: // venstre pil
+      case 32:
         if (showingAnswer) {
-          handlePlayerAnswer(false);
-        }
-        break;
-      case 38: // op pil
-        if (showingAnswer == false) {
+          handlePlayerAnswer();
+        } else {
           showingAnswer = true;
-          view.showingAnswer = showingAnswer;
         }
-        break;
-      case 39: // højre pil
-        if (showingAnswer) {
-          handlePlayerAnswer(true);
-        }
+        view.showingAnswer = showingAnswer;
         break;
       }
     }

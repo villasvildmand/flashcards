@@ -1,10 +1,12 @@
 class Flashcard {
   String front;
   String back;
+  int level;
   
-  Flashcard(String front, String back) {
+  Flashcard(String front, String back, int level) {
     this.front = front;
     this.back = back;
+    this.level = level;
   }
   
   String getBack() {
@@ -13,5 +15,9 @@ class Flashcard {
   
   String getFront() {
     return this.front;
+  }
+  
+  int getLevel() {
+    return this.level;
   }
 }

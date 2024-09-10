@@ -15,7 +15,7 @@ class CardsOverview {
       print(category);
 
       for (int i = 0; i < category.size(); i++) {
-        CardObject card = new CardObject(new PVector(width - 40, -15), new PVector(i * 47 + 100, y + 75));
+        CardObject card = new CardObject(category.get(i), new PVector(width - 40, -15), new PVector(i * 47 + 100, y + 75));
         cards.add(card);
       }
 
@@ -33,6 +33,10 @@ class CardsOverview {
   void render() {
     push();
     background(200);
+    
+    fill(255);
+    text(playerData.name, width/2, 80);
+    text(playerData.points, width/2, 100);
 
     for (int i = 0; i < this.cards.size(); i++) {
       this.cards.get(i).render();
@@ -71,25 +75,24 @@ class CardsOverview {
     static final float SPRING_CONSTANT = 80.0;
     static final float DAMPING_CONSTANT = 3.0;
 
-    Flashcard flashcard; //erstat med index hvis det ikke virker
+    int flashcardIndex; //erstat med index hvis det ikke virker
 
-    CardObject(final PVector start, final PVector goal) {
+    CardObject(int flashcardIndex, final PVector start, final PVector goal) {
       this.startPosition = start;
       this.animOffset = goal.sub(start);
 
       this.pos = start;
+      this.flashcardIndex = flashcardIndex;
     }
 
     void render() {
       pushMatrix();
       stroke(60);
-      fill(245);
+      fill(playerData.getLevel() >= flashcards[flashcardIndex].getLevel() ? 245 : 200);
       translate(this.pos.x, this.pos.y);
       rotate(this.displacementX * 0.0025);
       rect(-20.0, -15.0, 40.0, 30.0);
-      /*fill(255, 0, 0);
-       text(this.velocityX, 0, 0);
-       text(this.displacementX, 0, 20);*/
+      
       popMatrix();
     }
 
