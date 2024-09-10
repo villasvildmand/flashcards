@@ -1,9 +1,7 @@
 Flashcard[] flashcards;
 HashMap<String, ArrayList<Integer>> categories;
 
-// Brugerdata - måske lav til en klasse?
-String userName = "Christian";
-int userLevel = 1;
+PlayerData playerData;
 
 State state;
 long lastTime;
@@ -28,6 +26,11 @@ void setup() {
   textFont(mainFont);
   
   windowResizable(true);
+  
+  playerData = new PlayerData();
+  playerData.loadFromFile();
+  playerData.gameLevel = 100;
+  playerData.saveToFile();
 
   lastTime = System.nanoTime();
 }

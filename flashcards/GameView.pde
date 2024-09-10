@@ -37,6 +37,15 @@ class GameView {
     fill(0);
     textAlign(CENTER);
     text(this.currentCardText, width/2, 28);
+    
+    if (showingAnswer) {
+      textAlign(LEFT);
+      fill(255, 0, 0);
+      text("< Forkert", width/2 - 200, height*0.8);
+      textAlign(RIGHT);
+      fill(0, 255, 0);
+      text("Rigtig >", width/2 + 200, height*0.8);
+    }
   }
 
   void update(double deltaTime) {

@@ -3,6 +3,8 @@ class GameState implements State {
   int startSize;
   GameView view;
   boolean showingAnswer;
+  
+  int playerLevel;
 
   GameState() {
     cardStack = new ArrayList<>();
@@ -28,23 +30,36 @@ class GameState implements State {
   void handleMouseEvent(MouseEvent event) {
   }
 
+  void handlePlayerAnswer(boolean isCorrect) {
+    showingAnswer = false;
+    if (!cardStack.isEmpty()) {
+      nextCard();
+    } else {
+      state = new MenuState();
+    }
+    view.showingAnswer = showingAnswer;
+  }
+
   void handleKeyEvent(KeyEvent event) {
     if (event.getAction() == KeyEvent.PRESS) {
       // Tjekker om mellemrum trykkes
-      if (event.getKeyCode() == 32) {
+      switch (event.getKeyCode()) {
+      case 37: // venstre pil
+        if (showingAnswer) {
+          handlePlayerAnswer(false);
+        }
+        break;
+      case 38: // op pil
         if (showingAnswer == false) {
           showingAnswer = true;
-        } else {
-          showingAnswer = false;
-
-          // Viser det nye kort
-          if (!cardStack.isEmpty()) {
-            nextCard();
-          } else {
-            state = new MenuState();
-          }
+          view.showingAnswer = showingAnswer;
         }
-        view.showingAnswer = showingAnswer;
+        break;
+      case 39: // højre pil
+        if (showingAnswer) {
+          handlePlayerAnswer(true);
+        }
+        break;
       }
     }
   }

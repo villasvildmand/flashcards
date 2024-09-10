@@ -58,9 +58,10 @@ class MenuState implements State {
   }
 
   void render() {
-    background(0, 255, 0);
+    background(0, 0, 0);
     textSize(36);
     textAlign(CENTER);
+    fill(255);
     text("Flashcards om programmering", width/2, height/2);
     text("Skift med piletaster", width / 2, height * 0.75 + 48);
     text(getModeName(this.gameMode), width/2, height*0.75);
