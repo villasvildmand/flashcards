@@ -4,22 +4,37 @@ class CardsService {
 
   // Alle flashcards sorteret efter kategorier
   HashMap<String, ArrayList<Integer>> categories;
-  
-  HashMap<Integer, ArrayList<Integer>> levels;
+
+  int[][] levels;
+  int maxLevel;
 
   CardsService() {
     categories = new HashMap<>();
-    levels = new HashMap<>();
+    levels = new int[5][0];
   }
 
-  ArrayList<Integer> getIndicesOfLevel(int level) {
-    return levels.get(level);
+  int[] getCardsAtLevel(int level) {
+    return levels[level];
+  }
+
+  int[] getCardsBelowLevel(int level) {
+    int[] cards = new int[]{};
+
+    for (int i = level - 1; i >= 0; i--) {
+      cards = concat(cards, levels[i]);
+    }
+
+    return cards;
   }
 
   Flashcard getCard(int id) {
     return flashcards[id];
   }
-  
+
+  int getMaxLevel() {
+    return levels.length - 1;//this.maxLevel;
+  }
+
   int getCardsCount() {
     return flashcards.length;
   }
@@ -54,11 +69,11 @@ class CardsService {
       }
 
       int level = card.getInt("level");
-      
-      if (!levels.containsKey(level)) {
-        levels.put(level, new ArrayList<Integer>());
-      }
-      levels.get(level).add(i);
+
+      this.maxLevel = max(level, this.maxLevel);
+
+      // Tilføjer kortets index til arrayen for dens level
+      levels[level] = append(levels[level], i);
 
       flashcards[i] = new Flashcard(front, back, level);
     }
@@ -66,8 +81,10 @@ class CardsService {
     for (Flashcard flashcard : flashcards) {
       println(flashcard.front);
     }
-    
+
     println(categories);
-    println(levels);
+    for (int i = 0; i < levels.length; i++) {
+      println("level", levels[i].length);
+    }
   }
 }

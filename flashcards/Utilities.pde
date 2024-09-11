@@ -17,4 +17,27 @@ static class Utilities {
       array[j] = ai;
     }
   }
+  
+  static int[] pickRandomFromIntArray(final int[] array, int count) {
+    count = min(count, array.length); // burde ikke være nødvendigt i dette program
+    int[] values = new int[count];
+    int valueIndex = 0;
+    
+    Random random = new Random();
+    
+    for (int i = array.length - 1; i >= array.length - count; i--) {
+      int j = 0;
+      if (i > 0) j = random.nextInt(i);
+      
+      // bytter værdierne af index j og i
+      int ai = array[i];
+      array[i] = array[j];
+      array[j] = ai;
+      
+      values[valueIndex] = array[i];
+      valueIndex++;
+    }
+    
+    return values;
+  }
 }

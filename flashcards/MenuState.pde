@@ -27,8 +27,26 @@ class MenuState implements State {
         if (gameMode == 0) {
           GameState gameState = new GameState();
 
-          for (int i = 0; i < cardsService.getCardsCount(); i++) {
-            gameState.appendCard(i);
+          int level = min(playerData.getLevel(), cardsService.getMaxLevel());
+          println(level);
+
+
+          // Udvælger 7 kort fra den nuværende level
+          // Ved level 0 vælges dog 10 kort
+          int[] levelCards = cardsService.getCardsAtLevel(level);
+          println(levelCards);
+          int levelCardCount = min(levelCards.length, level > 0 ? 7 : 10);
+
+          for (int index : Utilities.pickRandomFromIntArray(levelCards, levelCardCount)) {
+            gameState.appendCard(index);
+          }
+
+          if (level > 0) {
+            int[] otherCards = cardsService.getCardsBelowLevel(level);
+
+            for (int index : Utilities.pickRandomFromIntArray(levelCards, 10 - levelCardCount)) {
+              gameState.appendCard(index);
+            }
           }
 
           state = gameState;
@@ -62,25 +80,25 @@ class MenuState implements State {
     textFont(fontRegular);
     background(COLOR_BACKGROUND);
     textSize(36);
-    
-    
+
+
     textAlign(LEFT, CENTER);
-    
+
     final int spacing = 50;
     final float listStartY = (height - spacing * (MODE_COUNT - 1))/2.0;
-    
+
     for (int i = 0; i < MODE_COUNT; i++) {
       fill(i == gameMode ? COLOR_PRIMARY : COLOR_SECONDARY);
       text(getModeName(i), width*0.2, listStartY + i * spacing);
     }
-    
+
     textAlign(CENTER, CENTER);
-    
+
     textFont(fontBold);
     fill(COLOR_PRIMARY);
     textSize(192);
     text(playerData.getLevel(), width*0.7, height/2 - 24);
-    
+
     noFill();
     strokeWeight(8);
     stroke(COLOR_TERTIARY);
@@ -93,13 +111,13 @@ class MenuState implements State {
     strokeWeight(8);
     stroke(COLOR_SECONDARY);
     arc(width*0.7, height/2 + 8, 240, 180, PI * 0.25, PI*(0.25 + levelProgress*0.5));
-    
+
     /*final float levelTextWidth = textWidth(str(playerData.getLevel()));
-    textSize(36);
-    fill(128);
-    text(playerData.name, width*0.7, height/2 + 100);
-    text("lvl", width * 0.7 - levelTextWidth, height/2);*/
-    
+     textSize(36);
+     fill(128);
+     text(playerData.name, width*0.7, height/2 + 100);
+     text("lvl", width * 0.7 - levelTextWidth, height/2);*/
+
     pop();
   }
 }
