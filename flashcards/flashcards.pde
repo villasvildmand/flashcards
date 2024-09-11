@@ -1,11 +1,5 @@
-// Alle flashcards i en usorteret liste
-Flashcard[] flashcards;
-
-// Alle flashcards sorteret efter kategorier
-HashMap<String, ArrayList<Integer>> categories;
-
+CardsService cardsService;
 PlayerData playerData;
-
 State state;
 
 long lastTime;
@@ -24,9 +18,11 @@ void setup() {
   size(600, 450);
   smooth(8);
 
-  categories = new HashMap<>();
-
-  loadCards();
+  cardsService = new CardsService();
+  cardsService.loadCards();
+  
+  playerData = new PlayerData();
+  playerData.loadFromFile();
 
   state = new MenuState();
 
@@ -40,9 +36,6 @@ void setup() {
   textFont(fontRegular);
 
   windowResizable(true);
-
-  playerData = new PlayerData();
-  playerData.loadFromFile();
 
   lastTime = System.nanoTime();
 }
@@ -65,46 +58,4 @@ void draw() {
 
   state.update(deltaTime);
   state.render();
-}
-
-// TODO - ryk nedenstående funktioner til en klasse(?)
-
-void loadCards() {
-  JSONObject json = loadJSONObject("data/cards.json");
-
-  StringList tags = json.getStringList("tags");
-  for (int i = 0; i < tags.size(); i++) {
-    String tag = tags.get(i);
-    categories.put(tag, new ArrayList<Integer>());
-  }
-  categories.put("Ikke sorteret", new ArrayList<Integer>());
-
-  JSONArray cards = json.getJSONArray("cards");
-
-  flashcards = new Flashcard[cards.size()];
-
-  for (int i = 0; i < cards.size(); i++) {
-    JSONObject card = cards.getJSONObject(i);
-
-    String front = card.getString("front");
-    String back = card.getString("back");
-
-    String tag = card.getString("tag");
-
-    if (categories.containsKey(tag)) {
-      categories.get(tag).add(i);
-    } else {
-      if (!tag.equals("")) println("Unsorted tag: " + tag);
-      categories.get("Ikke sorteret").add(i);
-    }
-
-    int level = card.getInt("level");
-
-    flashcards[i] = new Flashcard(front, back, level);
-  }
-
-  for (Flashcard flashcard : flashcards) {
-    println(flashcard.front);
-  }
-  println(categories);
 }

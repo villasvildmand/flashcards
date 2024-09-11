@@ -11,9 +11,7 @@ class CardsOverview {
     cards = new ArrayList<>();
 
     int y = 0;
-    for (ArrayList<Integer> category : categories.values()) {
-      print(category);
-
+    for (ArrayList<Integer> category : cardsService.categories.values()) {
       for (int i = 0; i < category.size(); i++) {
         CardObject card = new CardObject(category.get(i), new PVector(width - 40, -15), new PVector(i * 47 + 100, y + 75));
         cards.add(card);
@@ -88,7 +86,7 @@ class CardsOverview {
     void render() {
       pushMatrix();
       stroke(60);
-      fill(playerData.getLevel() >= flashcards[flashcardIndex].getLevel() ? 245 : 200);
+      fill(playerData.getLevel() >= cardsService.getCard(flashcardIndex).getLevel() ? 245 : 200);
       translate(this.pos.x, this.pos.y);
       rotate(this.displacementX * 0.0025);
       rect(-20.0, -15.0, 40.0, 30.0);

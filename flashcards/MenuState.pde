@@ -27,7 +27,7 @@ class MenuState implements State {
         if (gameMode == 0) {
           GameState gameState = new GameState();
 
-          for (int i = 0; i < flashcards.length; i++) {
+          for (int i = 0; i < cardsService.getCardsCount(); i++) {
             gameState.appendCard(i);
           }
 

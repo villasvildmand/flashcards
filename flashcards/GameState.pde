@@ -26,7 +26,7 @@ class GameState implements State {
     view.setNumber(cardStack.size(), startSize);
     int backIndex = cardStack.size() - 1; // Index af sidste kort;
     int index = cardStack.remove(backIndex);
-    view.setCard(flashcards[index]);
+    view.setCard(cardsService.getCard(index));
   }
 
   void handleMouseEvent(MouseEvent event) {
