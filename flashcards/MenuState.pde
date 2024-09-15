@@ -1,6 +1,11 @@
 class MenuState implements State {
   int gameMode;
-  static final int MODE_COUNT = 2;
+  static final int MODE_COUNT = 5;
+  float[] modeLabelOffsets;
+  
+  MenuState() {
+    modeLabelOffsets = new float[MODE_COUNT];
+  }
 
   String getModeName(int mode) {
     String name = "undefined";
@@ -28,13 +33,10 @@ class MenuState implements State {
           GameState gameState = new GameState();
 
           int level = min(playerData.getLevel(), cardsService.getMaxLevel());
-          println(level);
-
 
           // Udvælger 7 kort fra den nuværende level
           // Ved level 0 vælges dog 10 kort
           int[] levelCards = cardsService.getCardsAtLevel(level);
-          println(levelCards);
           int levelCardCount = min(levelCards.length, level > 0 ? 7 : 10);
 
           for (int index : Utilities.pickRandomFromIntArray(levelCards, levelCardCount)) {
@@ -43,8 +45,10 @@ class MenuState implements State {
 
           if (level > 0) {
             int[] otherCards = cardsService.getCardsBelowLevel(level);
+            
+            int[] fillerCards = Utilities.pickRandomFromIntArray(otherCards, 10 - levelCardCount);
 
-            for (int index : Utilities.pickRandomFromIntArray(levelCards, 10 - levelCardCount)) {
+            for (int index : fillerCards) {
               gameState.appendCard(index);
             }
           }
@@ -59,11 +63,11 @@ class MenuState implements State {
         break;
       case 38: // pil op
         gameMode--;
-        if (this.gameMode < 0) this.gameMode = this.MODE_COUNT - 1;
+        if (this.gameMode < 0) this.gameMode = MODE_COUNT - 1;
         break;
       case 40: // pil ned
         gameMode++;
-        if (this.gameMode > this.MODE_COUNT - 1) this.gameMode = 0;
+        if (this.gameMode > MODE_COUNT - 1) this.gameMode = 0;
         break;
       }
     }
@@ -73,6 +77,15 @@ class MenuState implements State {
   }
 
   void update(double deltaTime) {
+    float step = (float) deltaTime * 4.0;
+    
+    for (int i = 0; i < MODE_COUNT; i++) {
+      if (i == gameMode) {
+        modeLabelOffsets[i] = min(modeLabelOffsets[i] + step, 1.0);
+      } else {
+        modeLabelOffsets[i] = max(modeLabelOffsets[i] - step, 0.0);
+      }
+    }
   }
 
   void render() {
@@ -89,10 +102,21 @@ class MenuState implements State {
 
     for (int i = 0; i < MODE_COUNT; i++) {
       fill(i == gameMode ? COLOR_PRIMARY : COLOR_SECONDARY);
-      text(getModeName(i), width*0.2, listStartY + i * spacing);
+
+      float offsetX = 0.0;
+      if (i == gameMode) {
+        offsetX = Easings.easeOutQuart(modeLabelOffsets[i]) * 10.0;
+      } else {
+        offsetX = Easings.easeInQuad(modeLabelOffsets[i]) * 10.0;
+      }
+      
+      text(getModeName(i), width*0.2 + offsetX, listStartY + i * spacing);
     }
 
     textAlign(CENTER, CENTER);
+
+    fill(COLOR_SECONDARY);
+    text("Level", width * 0.7, height/2 - 160);
 
     textFont(fontBold);
     fill(COLOR_PRIMARY);

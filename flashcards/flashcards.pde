@@ -15,7 +15,7 @@ final color COLOR_SECONDARY = color(128);
 final color COLOR_TERTIARY = color(32);
 
 void setup() {
-  size(600, 450);
+  size(1200, 900);
   smooth(8);
 
   cardsService = new CardsService();

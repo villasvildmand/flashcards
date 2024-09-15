@@ -5,6 +5,11 @@ static class Easings {
     //return 1.0 - (1.0 - x) * (1.0 - x);
     return (2.0 - x) * x; // Egen omskrivning.
   }
+  
+  // https://easings.net/#easeInQuad
+  static float easeInQuad(float x) {
+    return x * x;
+  }
 
   // https://easings.net/#easeInBack
   static float easeInBack(float x) {
@@ -34,5 +39,13 @@ static class Easings {
   // Virker som forventet når 1 < a <= 2
   static float easeOutVariableOvershoot(float x, float a) {
     return (a - x) * x / (a - 1.0);
+  }
+  
+  static float easeParabola(float x) {
+    return 4 * (x - x * x);
+  }
+  
+  static float easeLinear(float x) {
+    return 1 - abs(2 * x - 1);
   }
 }

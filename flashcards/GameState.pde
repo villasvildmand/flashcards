@@ -23,6 +23,8 @@ class GameState implements State {
   }
 
   void nextCard() {
+    //if (cardStack.isEmpty()) return;
+    
     view.setNumber(cardStack.size(), startSize);
     int backIndex = cardStack.size() - 1; // Index af sidste kort;
     int index = cardStack.remove(backIndex);
@@ -55,6 +57,7 @@ class GameState implements State {
           showingAnswer = true;
         }
         view.showingAnswer = showingAnswer;
+        view.onCardFlipped();
         break;
       }
     }

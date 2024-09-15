@@ -57,8 +57,7 @@
         },
         {
             "front": "Hvilke typer af løkker findes der?",
-            "back": "For-løkker og while-løkker",
-            "bonus": "Enchanced loop",
+            "back": "For-løkker og while-løkker (og enhanced loops)",
             "tag": "Kontrolstrukturer",
             "level": 1
         },
