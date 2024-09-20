@@ -4,7 +4,8 @@
         "Variabler",
         "Arrays",
         "Funktioner",
-        "Kontrolstrukturer"
+        "Kontrolstrukturer",
+        "Logiske operatorer"
     ],
     "cards": [
         {
@@ -88,6 +89,12 @@
         {
             "front": "Hvilken returdatatype skal en funktion have, hvis den ikke skal returnere noget?",
             "back": "'void'",
+            "tag": "Funktioner",
+            "level": 1
+        },
+        {
+            "front": "Hvad betyder den logiske operator '&&'?",
+            "back": "",
             "tag": "Funktioner",
             "level": 1
         }

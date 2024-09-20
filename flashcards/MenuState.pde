@@ -1,6 +1,6 @@
 class MenuState implements State {
   int gameMode;
-  static final int MODE_COUNT = 5;
+  static final int MODE_COUNT = 2;
   float[] modeLabelOffsets;
   
   MenuState() {
@@ -117,6 +117,7 @@ class MenuState implements State {
 
     fill(COLOR_SECONDARY);
     text("Level", width * 0.7, height/2 - 160);
+    
 
     textFont(fontBold);
     fill(COLOR_PRIMARY);
@@ -135,6 +136,10 @@ class MenuState implements State {
     strokeWeight(8);
     stroke(COLOR_SECONDARY);
     arc(width*0.7, height/2 + 8, 240, 180, PI * 0.25, PI*(0.25 + levelProgress*0.5));
+
+    fill(COLOR_SECONDARY);
+    textFont(fontSemiBold);
+    text("Styr med mellemrum, pil op og pil ned", width/2, 75);
 
     /*final float levelTextWidth = textWidth(str(playerData.getLevel()));
      textSize(36);

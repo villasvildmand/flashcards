@@ -5,6 +5,9 @@ class OverviewState implements State {
   }
   
   void handleMouseEvent(MouseEvent event) {
+    if (event.getAction() == MouseEvent.WHEEL) {
+      //this.view.scroll = constrain(this.view.scroll + event.getCount() * 32.0, -400, 0);
+    }
   }
   void handleKeyEvent(KeyEvent event) {
     if (event.getAction() == KeyEvent.PRESS) {

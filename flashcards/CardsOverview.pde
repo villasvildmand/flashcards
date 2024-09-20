@@ -4,40 +4,78 @@ class CardsOverview {
   
   int[] spawnOrder;
   int spawnIndex;
+  
+  ItemGrid[] categoryGrids;
 
   static final float SPAWN_RATE = 0.1f;
+  float scroll;
 
   CardsOverview() {
     cards = new ArrayList<>();
 
-    int y = 0;
+    categoryGrids = new ItemGrid[cardsService.categories.size()];
+
+    int i = 0;
+    float offsetY = 0.0;
+    for (HashMap.Entry<String, ArrayList<Integer>> entry : cardsService.categories.entrySet()) {
+      ArrayList<Integer> items = entry.getValue();
+      
+      ItemGrid grid = new ItemGrid(entry.getKey());
+      grid.setItemCount(items.size());
+      grid.setMaxWidth(300);
+      grid.setItemSize(50, 50);
+      categoryGrids[i] = grid;
+      
+      for (int j = 0; j < items.size(); j++) {
+        CardObject card = new CardObject(items.get(j), new PVector(width - 40, -15), grid.getItemPosition(j).add(width/2 - 150, offsetY));
+        cards.add(card);
+      }
+      
+      offsetY += grid.getHeight() + 15.0;
+      
+      i++;
+    }
+
+    /*int y = 0;
     for (ArrayList<Integer> category : cardsService.categories.values()) {
+      
       for (int i = 0; i < category.size(); i++) {
         CardObject card = new CardObject(category.get(i), new PVector(width - 40, -15), new PVector(i * 47 + 100, y + 75));
         cards.add(card);
       }
 
       y += 50;
-    }
+    }*/
     
     this.spawnOrder = new int[cards.size()];
-    for(int i = 0; i < this.spawnOrder.length; i++) {
-      this.spawnOrder[i] = i;
+    for(int j = 0; j < this.spawnOrder.length; j++) {
+      this.spawnOrder[j] = j;
     }
     
-    Utilities.shuffleIntArray(this.spawnOrder);
+    //Utilities.shuffleIntArray(this.spawnOrder);
   }
 
   void render() {
     push();
-    background(200);
+    background(COLOR_BACKGROUND);
     
-    fill(255);
-    text(playerData.name, width/2, 80);
-    text(playerData.points, width/2, 100);
+    //fill(255);
+    //text(playerData.name, width/2, 80);
+    //text(playerData.points, width/2, 100);
+
+    translate(0, this.scroll + 200);
 
     for (int i = 0; i < this.cards.size(); i++) {
       this.cards.get(i).render();
+    }
+    
+    textAlign(LEFT, BOTTOM);
+    fill(COLOR_SECONDARY);
+    
+    float offsetY = 10.0;
+    for (int i = 0; i < this.categoryGrids.length; i++) {
+      text(this.categoryGrids[i].name, 175, offsetY);
+      offsetY += this.categoryGrids[i].getHeight() + 15.0;
     }
 
     pop();
@@ -70,8 +108,8 @@ class CardsOverview {
     PVector pos;
     PVector prevPos;
 
-    static final float SPRING_CONSTANT = 80.0;
-    static final float DAMPING_CONSTANT = 3.0;
+    static final float SPRING_CONSTANT = 40.0;
+    static final float DAMPING_CONSTANT = 4.0;
 
     int flashcardIndex; //erstat med index hvis det ikke virker
 
@@ -84,14 +122,24 @@ class CardsOverview {
     }
 
     void render() {
-      pushMatrix();
-      stroke(60);
+      push();
+      noStroke();
       fill(playerData.getLevel() >= cardsService.getCard(flashcardIndex).getLevel() ? 245 : 200);
       translate(this.pos.x, this.pos.y);
+      
+      pushMatrix();
       rotate(this.displacementX * 0.0025);
-      rect(-20.0, -15.0, 40.0, 30.0);
+      
+      rectMode(CENTER);
+      rect(0, 0, 40.0, 30.0);
       
       popMatrix();
+      
+      textAlign(CENTER, CENTER);
+      fill(COLOR_PRIMARY);
+      text(cardsService.getCard(flashcardIndex).getLevel(), 0, 0);
+      
+      pop();
     }
 
     void update(double deltaTime) {
