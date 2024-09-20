@@ -138,7 +138,7 @@ class MenuState implements State {
     arc(width*0.7, height/2 + 8, 240, 180, PI * 0.25, PI*(0.25 + levelProgress*0.5));
 
     fill(COLOR_SECONDARY);
-    textFont(fontSemiBold);
+    textFont(fontRegular);
     text("Styr med mellemrum, pil op og pil ned", width/2, 75);
 
     /*final float levelTextWidth = textWidth(str(playerData.getLevel()));

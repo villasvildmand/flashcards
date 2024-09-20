@@ -15,6 +15,7 @@ class GameState implements State {
 
   void onEnter() {
     nextCard();
+    particleSystem.clearParticles();
   }
 
   void appendCard(int index) {

@@ -124,7 +124,7 @@ class CardsOverview {
     void render() {
       push();
       noStroke();
-      fill(playerData.getLevel() >= cardsService.getCard(flashcardIndex).getLevel() ? 245 : 200);
+      fill(playerData.getLevel() >= cardsService.getCard(flashcardIndex).getLevel() ? COLOR_PRIMARY : 90);
       translate(this.pos.x, this.pos.y);
       
       pushMatrix();
@@ -136,7 +136,7 @@ class CardsOverview {
       popMatrix();
       
       textAlign(CENTER, CENTER);
-      fill(COLOR_PRIMARY);
+      fill(255);
       text(cardsService.getCard(flashcardIndex).getLevel(), 0, 0);
       
       pop();

@@ -1,4 +1,5 @@
 CardsService cardsService;
+ParticleSystem particleSystem;
 PlayerData playerData;
 State state;
 
@@ -14,9 +15,18 @@ final color COLOR_PRIMARY = #FFC41F;
 final color COLOR_SECONDARY = color(128);
 final color COLOR_TERTIARY = color(32);
 
+PImage IMAGES_STAR;
+PImage IMAGES_ICON_ONE;
+PImage IMAGES_ICON_ZERO;
+PImage IMAGES_ICON_RHOMBUS;
+PImage IMAGES_ICON_CURLY_BRACES;
+PImage IMAGES_ICON_AMPERSAND;
+
 void setup() {
   size(1200, 900);
   smooth(8);
+
+  particleSystem = new ParticleSystem();
 
   cardsService = new CardsService();
   cardsService.loadCards();
@@ -34,6 +44,13 @@ void setup() {
   fontSemiBold = createFont("data/assets/fonts/SUSE-SemiBold.ttf", 24.0);
   fontBold = createFont("data/assets/fonts/SUSE-Bold.ttf", 24.0);
   textFont(fontRegular);
+  
+  IMAGES_STAR = loadImage("data/assets/textures/star.png");
+  IMAGES_ICON_ONE = loadImage("data/assets/textures/icon_1.png");
+  IMAGES_ICON_ZERO = loadImage("data/assets/textures/icon_0.png");
+  IMAGES_ICON_RHOMBUS = loadImage("data/assets/textures/icon_rhombus.png");
+  IMAGES_ICON_CURLY_BRACES = loadImage("data/assets/textures/icon_curly_braces.png");
+  IMAGES_ICON_AMPERSAND = loadImage("data/assets/textures/icon_ampersand.png");
 
   windowResizable(true);
 
@@ -58,4 +75,16 @@ void draw() {
 
   state.update(deltaTime);
   state.render();
+  
+  push();
+  // debug
+  fill(COLOR_SECONDARY);
+  textFont(fontRegular);
+  textSize(14);
+  textAlign(LEFT, BOTTOM);
+  
+  text("FPS: " + frameRate, 20, height - 40);
+  float frameTime = (float) deltaTime * 1000.0;
+  text("deltaTime: " + frameTime + " ms", 20, height - 20);
+  pop();
 }

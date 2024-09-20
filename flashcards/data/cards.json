@@ -51,8 +51,8 @@
             "level": 1
         },
         {
-            "front": "Hvilken datatype bruges til at beskrive tekst?",
-            "back": "String",
+            "front": "Hvilken datatype bruges til at repræsentere tekst?",
+            "back": "Tekst repræsenteres med datatypen String",
             "tag": "Datatyper",
             "level": 0
         },
@@ -64,7 +64,7 @@
         },
         {
             "front": "Hvad er forskellen i navngivning mellem primitive og ikke-primitive datatyper?",
-            "back": "Primitive datatyper har småt begyndelsesbogstav, ikke-primitive har stort begyndelsesbogstav. F.eks.: int og String",
+            "back": "Primitive datatyper har lille begyndelsesbogstav, og ikke-primitive har stort begyndelsesbogstav.",
             "tag": "Datatyper",
             "level": 2
         },
@@ -93,9 +93,21 @@
             "level": 1
         },
         {
-            "front": "Hvad betyder den logiske operator '&&'?",
-            "back": "",
-            "tag": "Funktioner",
+            "front": "Hvad er navnet af den logiske operator '&&'?",
+            "back": "&& kaldes for 'and'.",
+            "tag": "Logiske operatorer",
+            "level": 1
+        },
+        {
+            "front": "Hvad er navnet af den logiske operator '||'?",
+            "back": "|| kaldes for 'or'.",
+            "tag": "Logiske operatorer",
+            "level": 1
+        },
+        {
+            "front": "Hvad er navnet af den logiske operator '!'?",
+            "back": "! kaldes for en negering.",
+            "tag": "Logiske operatorer",
             "level": 1
         }
     ]
