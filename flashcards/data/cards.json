@@ -5,7 +5,8 @@
         "Arrays",
         "Funktioner",
         "Kontrolstrukturer",
-        "Logiske operatorer"
+        "Logiske operatorer",
+        "Datastrukturer"
     ],
     "cards": [
         {
@@ -108,6 +109,24 @@
             "front": "Hvad er navnet af den logiske operator '!'?",
             "back": "! kaldes for en negering.",
             "tag": "Logiske operatorer",
+            "level": 1
+        },
+        {
+            "front": "Hvad betyder 'final' keywordet i java?",
+            "back": "final keywordet betyder at en variabel kun kan initieres én gang.",
+            "tag": "",
+            "level": 2
+        },
+        {
+            "front": "Hvad er et hashmap?",
+            "back": "Et hashmap er en datastruktur hvor variabler kan tilgås med en key. Key'en kan f.eks. være en string.",
+            "tag": "Datastrukturer",
+            "level": 1
+        },
+        {
+            "front": "Hvilke tre dele udgør en klasse?",
+            "back": "Attributter, en constructor og metoder.",
+            "tag": "",
             "level": 1
         }
     ]
