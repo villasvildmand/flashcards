@@ -3,9 +3,10 @@ class GameState implements State {
   int startSize;
   GameView view;
   boolean showingAnswer;
+  boolean canFlip;
 
   int playerLevel;
-  
+
   int[] unusedIndices;
 
   GameState() {
@@ -16,6 +17,7 @@ class GameState implements State {
   void onEnter() {
     nextCard();
     particleSystem.clearParticles();
+    canFlip = true;
   }
 
   void appendCard(int index) {
@@ -25,7 +27,7 @@ class GameState implements State {
 
   void nextCard() {
     //if (cardStack.isEmpty()) return;
-    
+
     view.setNumber(cardStack.size(), startSize);
     int backIndex = cardStack.size() - 1; // Index af sidste kort;
     int index = cardStack.remove(backIndex);
@@ -52,15 +54,20 @@ class GameState implements State {
       // Tjekker om mellemrum trykkes
       switch (event.getKeyCode()) {
       case 32:
-        if (showingAnswer) {
-          handlePlayerAnswer();
-        } else {
-          showingAnswer = true;
+        if (canFlip) {
+          if (showingAnswer) {
+            handlePlayerAnswer();
+          } else {
+            showingAnswer = true;
+          }
+          view.showingAnswer = showingAnswer;
+          view.onCardFlipped();
+          canFlip = false;
         }
-        view.showingAnswer = showingAnswer;
-        view.onCardFlipped();
         break;
       }
+    } else if(event.getAction() == KeyEvent.RELEASE) {
+      canFlip = true;
     }
   }
 
