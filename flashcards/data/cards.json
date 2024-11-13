@@ -128,6 +128,24 @@
             "back": "Attributter, en constructor og metoder.",
             "tag": "",
             "level": 1
+        },
+        {
+            "front": "Hvad gør operationerne ++ og --?",
+            "back": "++ svarer til at lægge 1 til en værdi. -- svarer til at trække 1 fra en værdi.",
+            "tag": "",
+            "level": 2
+        },
+        {
+            "front": "Hvad gør en funktion rekursiv?",
+            "back": "En funktion er rekursiv hvis den referer til sig selv.",
+            "tag": "Funktioner",
+            "level": 3
+        },
+        {
+            "front": "Hvad betyder det når en klasse nedarver fra en anden?",
+            "back": "Når en klasse nedarver fra en anden, så får klassen alle de samme metoder og attributter som super-klassen.",
+            "tag": "",
+            "level": 3
         }
     ]
 }
